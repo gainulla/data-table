@@ -28,7 +28,7 @@ app.get('/count', (req, res, next) => {
   const conn = mysql.createConnection(mysqlConfig);
 
   conn.connect(err => {
-    if (err) console.log(err);
+    if (err) throw err;
   });
 
   const response = {
@@ -50,7 +50,6 @@ app.get('/count', (req, res, next) => {
 
   conn.query(query, (err, result) => {
     if (result) {
-      console.log("count", result);
       response.success = true;
       response.count = result[0].count;
       res.send(response);
@@ -72,7 +71,7 @@ app.get('/data', (req, res, next) => {
   const conn = mysql.createConnection(mysqlConfig);
 
   conn.connect(err => {
-    if (err) console.log(err);
+    if (err) throw err;
   });
 
   const response = {
@@ -146,9 +145,7 @@ app.get('/data', (req, res, next) => {
   });
 
   conn.end(err => {
-    if (err) {
-      console.log(err);
-    }
+    if (err) throw err;
   });
 
 });
