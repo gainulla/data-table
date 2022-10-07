@@ -98,11 +98,7 @@ app.get('/data', (req, res, next) => {
 
   const filter = JSON.parse(req.query.filter);
 
-  console.log("FILTER", filter);
-
   let query = "";
-
-  //DATE_FORMAT(the_date, '%d.%m.%Y') as the_date,
 
   if (!filter.value) {
     query = `
@@ -136,8 +132,6 @@ app.get('/data', (req, res, next) => {
       LIMIT ${limit} OFFSET ${offset}
     `;
   }
-
-  console.log("QUERY", query);
 
   conn.query(query, (err, result) => {
     if (result) {
