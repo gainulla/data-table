@@ -236,6 +236,8 @@ export default {
       this.params.filter.column = this.dropdowns.selectColumn.key;
       this.params.filter.condition = this.dropdowns.selectCondition.key;
       this.params.filter.value = this.formatFilteringValue();
+      this.params.offset = 0;
+      this.pageNum = 1;
 
       this.loadCount();
       this.loadData();
