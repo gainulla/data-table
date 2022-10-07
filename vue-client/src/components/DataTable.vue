@@ -230,23 +230,12 @@ export default {
       }
     },
     setFilteringValue(value) {
-      if (this.dropdowns.selectColumn.key == 'the_date') {
-        const parts = value.split('.');
-        if (parts.length == 3) {
-          this.filteringValue = `${parts[2]}-${parts[1]}-${parts[0]}`;
-        } else if (parts.length == 2) {
-          this.filteringValue = `${parts[1]}-${parts[0]}`;
-        } else if (parts.length == 1) {
-          this.filteringValue = `${parts[0]}`;
-        }
-      } else {
-        this.filteringValue = value;
-      }
+      this.filteringValue = value;
     },
     filterRecords() {
       this.params.filter.column = this.dropdowns.selectColumn.key;
       this.params.filter.condition = this.dropdowns.selectCondition.key;
-      this.params.filter.value = this.filteringValue;
+      this.params.filter.value = this.formatFilteringValue();
 
       this.loadCount();
       this.loadData();
@@ -264,6 +253,20 @@ export default {
       this.order.amount.desc = true;
       this.order.distance.desc = true;
       this.loadData();
+    },
+    formatFilteringValue() {
+      if (this.dropdowns.selectColumn.key == 'the_date') {
+        const parts = this.filteringValue.split('.');
+        if (parts.length == 3) {
+          return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        } else if (parts.length == 2) {
+          return `${parts[1]}-${parts[0]}`;
+        } else if (parts.length == 1) {
+          return `${parts[0]}`;
+        }
+      } else {
+        return this.filteringValue;
+      }
     }
   },
 };
